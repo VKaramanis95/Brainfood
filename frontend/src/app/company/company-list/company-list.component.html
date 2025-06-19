@@ -1,0 +1,84 @@
+<h2>Εταιρείες</h2>
+
+<input [(ngModel)]="filters.Name" placeholder="Όνομα" />
+<input [(ngModel)]="filters.VAT" placeholder="ΑΦΜ" />
+<button (click)="search()">Αναζήτηση</button>
+<button [routerLink]="['/company/create']">Add Company</button>
+
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th (click)="sort('ERPcode')">ERP Code</th>
+      <th (click)="sort('Name')">Όνομα</th>
+      <th (click)="sort('VAT')">ΑΦΜ</th>
+      <th>ΔΟΥ</th>
+      <th>Διεύθυνση</th>
+      <th>Πόλη</th>
+      <th>Χώρα</th>
+      <th>Τηλέφωνο</th>
+      <th>IBAN</th>
+      <th>Ενέργειες</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of companies">
+      <td>{{ c.ERPcode }}</td>
+      <td>{{ c.Name }}</td>
+      <td>{{ c.VAT }}</td>
+      <td>{{ c.BillingDOY }}</td>
+      <td>{{ c.BillingAddress1 }}</td>
+      <td>{{ c.BillingCity }}</td>
+      <td>{{ c.BillingCountry }}</td>
+      <td>{{ c.BillingPhone }}</td>
+      <td>{{ c.BillingBankAccount }}</td>
+      <td>
+        <button [routerLink]="['/company/edit', c.ID]">Edit</button>
+        <button (click)="delete(c.ID)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="margin-top: 15px;">
+  <button (click)="previousPage()" [disabled]="currentPage === 1">⟨ Προηγούμενη</button>
+  Σελίδα {{ currentPage }} από {{ totalPages }}
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Επόμενη ⟩</button>
+</div>
+
+<style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  cursor: pointer;
+  background-color: #f4f4f4;
+}
+
+th:hover {
+  background-color: #ddd;
+}
+
+td, th {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+
+</style>

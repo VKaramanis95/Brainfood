@@ -1,0 +1,24 @@
+<h2>{{ isEdit ? 'Επεξεργασία' : 'Νέα Εταιρεία' }}</h2>
+
+<form (ngSubmit)="save()">
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <label>Όνομα:</label>
+  <input [(ngModel)]="company.Name" name="Name" required />
+
+  <label>ΑΦΜ:</label>
+  <input [(ngModel)]="company.VAT" name="VAT" />
+
+  <label>ERP Code:</label>
+  <input [(ngModel)]="company.ERPcode" name="ERPcode" />
+
+  <label>ΔΟΥ:</label>
+  <input [(ngModel)]="company.BillingDOY" name="BillingDOY" />
+
+  <label>Επωνυμία Τιμολόγησης:</label>
+  <input [(ngModel)]="company.BillingCompanyName" name="BillingCompanyName" />
+
+  <!-- Μπορείς να προσθέσεις κι άλλα πεδία... -->
+
+  <button type="submit">Αποθήκευση</button>
+</form>
