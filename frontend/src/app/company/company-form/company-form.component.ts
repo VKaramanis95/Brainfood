@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService, Company } from '../company.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router,RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-company-form',
   templateUrl: './company-form.component.html',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterModule],
 })
 export class CompanyFormComponent implements OnInit {
   company: Company = { Name: '', VAT: '', ERPcode: '' };

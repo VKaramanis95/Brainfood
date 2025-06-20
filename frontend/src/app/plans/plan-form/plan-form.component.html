@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Επεξεργασία Πακέτου' : 'Προσθήκη Πακέτου' }}</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <form (ngSubmit)="save()" #planForm="ngForm">
+    <div class="mb-3">
+      <label class="form-label">Όνομα</label>
+      <input type="text" class="form-control" required [(ngModel)]="plan.Name" name="Name" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Λογαριασμοί</label>
+        <input type="number" class="form-control" [(ngModel)]="plan.allowsocialaccounts" name="accounts" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Δημοσιεύσεις/Μήνα</label>
+        <input type="number" class="form-control" [(ngModel)]="plan.allowpostspermonth" name="posts" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Switchboard Templates</label>
+        <input type="number" class="form-control" [(ngModel)]="plan.allowswitchboardtemplates" name="switchboard" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Insta Carousels</label>
+        <input type="number" class="form-control" [(ngModel)]="plan.allowinstcarousels" name="carousels" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Creatomate Videos/Μήνα</label>
+        <input type="number" class="form-control" [(ngModel)]="plan.allowcreatomatevideospermonth" name="videos" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">XXX Allow</label>
+        <input type="number" class="form-control" [(ngModel)]="plan.allowxxx" name="xxx" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Τιμή/Μήνα</label>
+        <input type="number" class="form-control" [(ngModel)]="plan.initialpricemonth" name="price" step="0.01" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Έκπτωση (%)</label>
+        <input type="number" class="form-control" [(ngModel)]="plan.initialpricediscount" name="discount" />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+      {{ isEditMode ? 'Update' : 'Create' }}
+    </button>
+    <a class="btn btn-secondary ms-2" routerLink="/plans">Ακύρωση</a>
+  </form>
+</div>

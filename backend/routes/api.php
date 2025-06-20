@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\SocialAIPlanController;
 
 Route::prefix('companies')->group(function () {
     Route::get('/', [CompanyController::class, 'index']);
@@ -9,3 +10,4 @@ Route::prefix('companies')->group(function () {
     Route::put('/{id}', [CompanyController::class, 'update']);
     Route::delete('/{id}', [CompanyController::class, 'destroy']);
 });
+Route::apiResource('socialaiplans', SocialAIPlanController::class);

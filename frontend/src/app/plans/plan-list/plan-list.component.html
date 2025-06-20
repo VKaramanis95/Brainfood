@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <h2>Διαχείριση Πακέτων</h2>
+
+  <div class="mb-3 d-flex align-items-center gap-2 flex-wrap">
+  <input
+    type="text"
+    class="form-control w-auto"
+    placeholder="Αναζήτηση με Όνομα"
+    [(ngModel)]="filters.Name"
+  />
+  <button class="btn btn-primary" (click)="search()">Αναζήτηση</button>
+  
+  <div class="ms-auto d-flex gap-2 flex-wrap">
+    <button class="btn btn-success" (click)="goToAdd()"> Προσθήκη Πακέτου</button>
+    <button class="btn btn-secondary" (click)="goToCompanies()"> Προβολή Εταιρειών</button>
+
+  </div>
+</div>
+
+
+<div class="container mt-4">
+  <h2>Διαχείριση Πακέτων</h2>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let plan of plans">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title fw-bold text-uppercase">{{ plan.Name }}</h5>
+          <p class="card-text">
+            <strong>Λογαριασμοί:</strong> {{ plan.allowsocialaccounts }}<br />
+            <strong>Δημοσιεύσεις/μήνα:</strong> {{ plan.allowpostspermonth }}<br />
+            <strong>Switchboard Templates:</strong> {{ plan.allowswitchboardtemplates }}<br />
+            <strong>Instagram Carousels:</strong> {{ plan.allowinstcarousels || '—' }}<br />
+            <strong>Creatomate Videos:</strong> {{ plan.allowcreatomatevideospermonth || '—' }}<br />
+            <strong>Extra:</strong> {{ plan.allowxxx || '—' }}<br />
+            <strong>Τιμή/Μήνα:</strong> {{ plan.initialpricemonth | currency:'EUR' }}<br />
+            <strong>Έκπτωση:</strong> {{ plan.initialpricediscount || '—' }}
+          </p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          <button class="btn btn-sm btn-warning" (click)="goToEdit(plan.ID!)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="delete(plan.ID!)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

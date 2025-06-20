@@ -1,24 +1,67 @@
-<h2>{{ isEdit ? 'Επεξεργασία' : 'Νέα Εταιρεία' }}</h2>
+<div class="container mt-4">
+  <h2 class="mb-4">{{ isEdit ? 'Επεξεργασία Εταιρείας' : 'Νέα Εταιρεία' }}</h2>
 
-<form (ngSubmit)="save()">
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  <form (ngSubmit)="save()" #companyForm="ngForm" class="needs-validation" novalidate>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
 
-  <label>Όνομα:</label>
-  <input [(ngModel)]="company.Name" name="Name" required />
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Όνομα</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="company.Name"
+          name="Name"
+          required
+        />
+      </div>
 
-  <label>ΑΦΜ:</label>
-  <input [(ngModel)]="company.VAT" name="VAT" />
+      <div class="col-md-6 mb-3">
+        <label class="form-label">ΑΦΜ</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="company.VAT"
+          name="VAT"
+        />
+      </div>
 
-  <label>ERP Code:</label>
-  <input [(ngModel)]="company.ERPcode" name="ERPcode" />
+      <div class="col-md-6 mb-3">
+        <label class="form-label">ERP Code</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="company.ERPcode"
+          name="ERPcode"
+        />
+      </div>
 
-  <label>ΔΟΥ:</label>
-  <input [(ngModel)]="company.BillingDOY" name="BillingDOY" />
+      <div class="col-md-6 mb-3">
+        <label class="form-label">ΔΟΥ</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="company.BillingDOY"
+          name="BillingDOY"
+        />
+      </div>
 
-  <label>Επωνυμία Τιμολόγησης:</label>
-  <input [(ngModel)]="company.BillingCompanyName" name="BillingCompanyName" />
+      <div class="col-md-12 mb-3">
+        <label class="form-label">Επωνυμία Τιμολόγησης</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="company.BillingCompanyName"
+          name="BillingCompanyName"
+        />
+      </div>
+    </div>
 
-  <!-- Μπορείς να προσθέσεις κι άλλα πεδία... -->
-
-  <button type="submit">Αποθήκευση</button>
-</form>
+    <div class="mt-3">
+      <button type="submit" class="btn btn-success">Αποθήκευση</button>
+      <a routerLink="/company" class="btn btn-secondary ms-2">Ακύρωση</a>
+    </div>
+  </form>
+</div>

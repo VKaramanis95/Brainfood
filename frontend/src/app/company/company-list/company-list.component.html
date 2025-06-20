@@ -1,84 +1,167 @@
-<h2>Εταιρείες</h2>
+<div class="container">
+  <h2>Εταιρείες</h2>
 
-<input [(ngModel)]="filters.Name" placeholder="Όνομα" />
-<input [(ngModel)]="filters.VAT" placeholder="ΑΦΜ" />
-<button (click)="search()">Αναζήτηση</button>
-<button [routerLink]="['/company/create']">Add Company</button>
+  <div class="filter-bar">
+    <input [(ngModel)]="filters.Name" placeholder="Όνομα" />
+    <input [(ngModel)]="filters.VAT" placeholder="ΑΦΜ" />
+    <button (click)="search()" class="primary-btn">Αναζήτηση</button>
+    <div class="spacer"></div>
+    <button [routerLink]="['/company/create']" class="secondary-btn"> Add Company</button>
+    <button [routerLink]="['/plans']" class="secondary-btn"> View Plans</button>
+  </div>
 
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th (click)="sort('ERPcode')">ERP Code</th>
+          <th (click)="sort('Name')">Όνομα</th>
+          <th (click)="sort('VAT')">ΑΦΜ</th>
+          <th>ΔΟΥ</th>
+          <th>Διεύθυνση</th>
+          <th>Πόλη</th>
+          <th>Χώρα</th>
+          <th>Τηλέφωνο</th>
+          <th>IBAN</th>
+          <th>Ενέργειες</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of companies">
+          <td>{{ c.ERPcode }}</td>
+          <td>{{ c.Name }}</td>
+          <td>{{ c.VAT }}</td>
+          <td>{{ c.BillingDOY }}</td>
+          <td>{{ c.BillingAddress1 }}</td>
+          <td>{{ c.BillingCity }}</td>
+          <td>{{ c.BillingCountry }}</td>
+          <td>{{ c.BillingPhone }}</td>
+          <td>{{ c.BillingBankAccount }}</td>
+          <td>
+            <button [routerLink]="['/company/edit', c.ID]" class="action-btn edit">Edit</button>
+            <button (click)="delete(c.ID)" class="action-btn delete">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<table border="1" cellpadding="6" cellspacing="0">
-  <thead>
-    <tr>
-      <th (click)="sort('ERPcode')">ERP Code</th>
-      <th (click)="sort('Name')">Όνομα</th>
-      <th (click)="sort('VAT')">ΑΦΜ</th>
-      <th>ΔΟΥ</th>
-      <th>Διεύθυνση</th>
-      <th>Πόλη</th>
-      <th>Χώρα</th>
-      <th>Τηλέφωνο</th>
-      <th>IBAN</th>
-      <th>Ενέργειες</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let c of companies">
-      <td>{{ c.ERPcode }}</td>
-      <td>{{ c.Name }}</td>
-      <td>{{ c.VAT }}</td>
-      <td>{{ c.BillingDOY }}</td>
-      <td>{{ c.BillingAddress1 }}</td>
-      <td>{{ c.BillingCity }}</td>
-      <td>{{ c.BillingCountry }}</td>
-      <td>{{ c.BillingPhone }}</td>
-      <td>{{ c.BillingBankAccount }}</td>
-      <td>
-        <button [routerLink]="['/company/edit', c.ID]">Edit</button>
-        <button (click)="delete(c.ID)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<div style="margin-top: 15px;">
-  <button (click)="previousPage()" [disabled]="currentPage === 1">⟨ Προηγούμενη</button>
-  Σελίδα {{ currentPage }} από {{ totalPages }}
-  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Επόμενη ⟩</button>
+  <!-- Pagination -->
+  <div class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">⟨ Προηγούμενη</button>
+    <span>Σελίδα {{ currentPage }} από {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Επόμενη ⟩</button>
+  </div>
 </div>
-
 <style>
-table {
-  width: 100%;
-  border-collapse: collapse;
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-th {
-  cursor: pointer;
-  background-color: #f4f4f4;
+h2 {
+  margin-bottom: 20px;
+  color: #333;
 }
 
-th:hover {
-  background-color: #ddd;
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
-td, th {
+.filter-bar input {
   padding: 8px;
-  border: 1px solid #ddd;
-}
-
-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  margin: 2px;
-  cursor: pointer;
+  border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-button:hover {
-  background-color: #45a049;
+.spacer {
+  flex-grow: 1;
 }
 
+button {
+  padding: 8px 14px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
 
+.primary-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.secondary-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.primary-btn:hover {
+  background-color: #0069d9;
+}
+
+.secondary-btn:hover {
+  background-color: #218838;
+}
+
+.action-btn {
+  padding: 4px 10px;
+  margin: 2px;
+  font-size: 13px;
+}
+
+.action-btn.edit {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.action-btn.delete {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.action-btn.edit:hover {
+  background-color: #e0a800;
+}
+
+.action-btn.delete:hover {
+  background-color: #c82333;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+th:hover {
+  background-color: #e9ecef;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 </style>
