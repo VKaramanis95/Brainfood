@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../company.service';
+import { CompanyPlanService } from '../../company-plan/company-plan.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CompanyPlan } from '../../company-plan/company-plan.model';
 
 
 @Component({
@@ -14,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class CompanyListComponent implements OnInit {
   companies: any[] = [];
+  companyPlanStatuses: { [companyID: number]: string } = {};
 
   filters = {
     Name: '',
@@ -26,10 +29,15 @@ export class CompanyListComponent implements OnInit {
   currentPage = 1;
   totalPages = 1;
 
-  constructor(private companyService: CompanyService, private router: Router) {}
+  constructor(
+    private companyService: CompanyService,
+    private planService: CompanyPlanService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadCompanies();
+    this.loadPlanStatuses();
   }
 
   loadCompanies(): void {
@@ -51,9 +59,37 @@ export class CompanyListComponent implements OnInit {
       }
     });
   }
+
+  loadPlanStatuses(): void {
+    this.planService.getAllPlans().subscribe((plans: CompanyPlan[]) => {
+      const today = new Date();
+      const statusMap: { [companyID: number]: string } = {};
+
+      plans.forEach(plan => {
+        const endDate = plan.end_date ? new Date(plan.end_date) : null;
+        const companyID = plan.companyID;
+
+        if (!statusMap[companyID]) {
+          statusMap[companyID] = 'Έληξε';
+        }
+
+        if (endDate && endDate > today) {
+          statusMap[companyID] = 'Ενεργό';
+        }
+      });
+
+      this.companyPlanStatuses = statusMap;
+    });
+  }
+
+  getPlanStatus(companyID: number): string {
+    return this.companyPlanStatuses[companyID] || '—';
+  }
+
   openAddCompanyForm(): void {
     this.router.navigate(['/company/create']);  
   }
+
   search(): void {
     this.currentPage = 1;
     this.loadCompanies();

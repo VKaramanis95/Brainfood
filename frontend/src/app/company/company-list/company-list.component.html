@@ -30,19 +30,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let c of companies">
-          <td>{{ c.ERPcode }}</td>
-          <td>{{ c.Name }}</td>
-          <td>{{ c.VAT }}</td>
-          <td>{{ c.BillingDOY }}</td>
-          <td>{{ c.BillingAddress1 }}</td>
-          <td>{{ c.BillingCity }}</td>
-         <!-- <td>{{ c.BillingCountry }}</td>-->
-          <td>{{ c.BillingPhone }}</td>
-          <td>{{ c.BillingBankAccount }}</td>
+        <tr *ngFor="let company of companies">
+          <td>{{ company.ERPcode }}</td>
+          <td>{{ company.Name }}</td>
+          <td>{{ company.VAT }}</td>
+          <td>{{ company.BillingDOY }}</td>
+          <td>{{ company.BillingAddress1 }}</td>
+          <td>{{ company.BillingCity }}</td>
+         <!-- <td>{{ company.BillingCountry }}</td>-->
+          <td>{{ company.BillingPhone }}</td>
+          <td>{{ company.BillingBankAccount }}</td>
+          <td>{{ getPlanStatus(company.ID) }}</td>
           <td>
-            <button [routerLink]="['/company/edit', c.ID]" class="action-btn edit">Edit</button>
-            <button (click)="delete(c.ID)" class="action-btn delete">Delete</button>
+            <button [routerLink]="['/company/edit', company.ID]" class="action-btn edit">Edit</button>
+            <button (click)="delete(company.ID)" class="action-btn delete">Delete</button>
           </td>
         </tr>
       </tbody>
