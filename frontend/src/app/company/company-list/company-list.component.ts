@@ -6,18 +6,22 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CompanyPlan } from '../../company-plan/company-plan.model';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @Component({
   selector: 'app-company-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule,NgxPaginationModule],
   templateUrl: './company-list.component.html',
 })
 export class CompanyListComponent implements OnInit {
   companies: any[] = [];
   companyPlanStatuses: { [companyID: number]: string } = {};
 
+currentPage: number = 1;
+  itemsPerPage: number = 5;
+  
   filters = {
     Name: '',
     VAT: ''
@@ -26,8 +30,7 @@ export class CompanyListComponent implements OnInit {
   sortField: string = '';
   sortAsc: boolean = true;
 
-  currentPage = 1;
-  totalPages = 1;
+ 
 
   constructor(
     private companyService: CompanyService,
@@ -52,7 +55,6 @@ export class CompanyListComponent implements OnInit {
     this.companyService.getCompanies(params).subscribe({
       next: (res) => {
         this.companies = res.data;       
-        this.totalPages = res.last_page; 
       },
       error: (err) => {
         console.error('Failed to load companies:', err);
@@ -105,19 +107,6 @@ export class CompanyListComponent implements OnInit {
     this.loadCompanies();
   }
 
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.loadCompanies();
-    }
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.loadCompanies();
-    }
-  }
 
   delete(id: number): void {
     if (confirm('Σίγουρα θέλεις να διαγράψεις την εταιρεία;')) {

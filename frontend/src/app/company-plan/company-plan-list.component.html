@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-    <h2 class="mb-3 mb-md-0">📋 Επισκόπηση Πλάνων Εταιρειών</h2>
+    <h2 class="mb-3 mb-md-0"> Επισκόπηση Πλάνων Εταιρειών</h2>
     <div class="d-flex gap-2">
 <button (click)="goToCompanies()" class="btn btn-outline-primary">Όλες οι Εταιρείες</button>
 <button (click)="goToPlans()" class="btn btn-outline-primary">Όλα τα πλάνα</button>
@@ -14,25 +14,42 @@
   >
     <thead class="table-light text-center">
       <tr>
+        
         <th>Όνομα</th>
         <th>Περιγραφή</th>
         <th>Εταιρεία</th>
         <th>Ημερομηνία Έναρξης</th>
         <th>Ημερομηνία Λήξης</th>
+        <th>monthly/Year</th>
+        <th>Πακετο</th>
         <th>Τελική Τιμή</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let plan of plans">
+<tr *ngFor="let plan of plans | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
         <td><strong>{{ plan.Name || '—' }}</strong></td>
         <td>{{ plan.Description || '—' }}</td>
         <td>{{ plan.company?.Name || '—' }}</td>
         <td>{{ plan.start_date | date: 'dd/MM/yyyy' }}</td>
         <td>{{ plan.end_date ? (plan.end_date | date: 'dd/MM/yyyy') : '—' }}</td>
+        <td>
+          {{
+            plan.monthyear === 'month' ? 'Μηνιαίο' :
+            plan.monthyear === 'year' ? 'Ετήσιο' :
+            '—'
+          }}
+        </td>
+                <td><strong>{{ plan.plan?.Name || '—' }}</strong></td>
+        
         <td class="text-end">{{ plan.finalprice | currency: 'EUR' }}</td>
       </tr>
     </tbody>
   </table>
+  <pagination-controls
+  class="d-flex justify-content-center mt-3"
+  (pageChange)="currentPage = $event">
+</pagination-controls>
+
 
   <ng-template #noPlans>
     <div class="alert alert-warning text-center" role="alert">

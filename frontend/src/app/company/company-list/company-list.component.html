@@ -30,7 +30,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let company of companies">
+<tr *ngFor="let company of companies | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
           <td>{{ company.ERPcode }}</td>
           <td>{{ company.Name }}</td>
           <td>{{ company.VAT }}</td>
@@ -50,11 +50,9 @@
     </table>
   </div>
 
-  <div class="pagination">
-    <button (click)="previousPage()" [disabled]="currentPage === 1">⟨ Προηγούμενη</button>
-    <span>Σελίδα {{ currentPage }} από {{ totalPages }}</span>
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Επόμενη ⟩</button>
-  </div>
+  <div class="pagination d-flex justify-content-center mt-3">
+  <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+</div>
 </div>
 <style>
 .container {
