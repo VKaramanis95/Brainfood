@@ -69,14 +69,17 @@
 ---
 
 ## Οδηγίες Εκκίνησης (Τοπικά)
+### Frontend (Angular 19)
 
-### Backend (Angular)
+Για την εκκίνηση του frontend:
+
 ```bash
 cd frontend
 npm install
-ng serve
-### Backend (Laravel)
+ng serve --open
 
+
+### Backend (Angular)
 ```bash
 git clone <https://github.com/VKaramanis95/Brainfood.git>
 cd backend
