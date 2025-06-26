@@ -69,6 +69,7 @@
 ---
 
 ## Οδηγίες Εκκίνησης (Τοπικά)
+git clone <https://github.com/VKaramanis95/Brainfood.git>
 ### Frontend (Angular 19)
 
 Για την εκκίνηση του frontend:
@@ -81,7 +82,7 @@ ng serve --open
 
 ### Backend (Angular)
 ```bash
-git clone <https://github.com/VKaramanis95/Brainfood.git>
+
 cd backend
 composer install
 cp .env.example .env
