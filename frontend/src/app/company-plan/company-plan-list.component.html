@@ -12,21 +12,58 @@
     *ngIf="plans.length > 0; else noPlans"
     class="table table-bordered table-hover table-striped align-middle shadow-sm"
   >
-    <thead class="table-light text-center">
+    <thead class="table-light text-center align-middle">
       <tr>
-        
         <th>Όνομα</th>
         <th>Περιγραφή</th>
-        <th>Εταιρεία</th>
-        <th>Ημερομηνία Έναρξης</th>
-        <th>Ημερομηνία Λήξης</th>
-        <th>monthly/Year</th>
-        <th>Πακετο</th>
+
+        <th>
+          <button (click)="sortBy('company')" class="sort-button" aria-label="Ταξινόμηση κατά Εταιρεία" style="all:unset; cursor:pointer; font-weight:600; font-size:14px; display:inline-flex; align-items:center; gap:4px;">
+            Εταιρεία
+            <span [style.color]="sortField === 'company' ? 'black' : '#ccc'" style="font-weight:bold; font-size:14px; margin-left:4px;">
+              {{ sortField === 'company' ? (sortDirection === 'asc' ? '▲' : '▼') : '▲' }}
+            </span>
+          </button>
+        </th>
+
+        <th>
+          <button (click)="sortBy('start_date')" class="sort-button" aria-label="Ταξινόμηση κατά Ημερομηνία Έναρξης" style="all:unset; cursor:pointer; font-weight:600; font-size:14px; display:inline-flex; align-items:center; gap:4px;">
+            Ημερομηνία Έναρξης
+            <span [style.color]="sortField === 'start_date' ? 'black' : '#ccc'" style="font-weight:bold; font-size:14px; margin-left:4px;">
+              {{ sortField === 'start_date' ? (sortDirection === 'asc' ? '▲' : '▼') : '▲' }}
+            </span>
+          </button>
+        </th>
+
+        <th>
+          <button (click)="sortBy('end_date')" class="sort-button" aria-label="Ταξινόμηση κατά Ημερομηνία Λήξης" style="all:unset; cursor:pointer; font-weight:600; font-size:14px; display:inline-flex; align-items:center; gap:4px;">
+            Ημερομηνία Λήξης
+            <span [style.color]="sortField === 'end_date' ? 'black' : '#ccc'" style="font-weight:bold; font-size:14px; margin-left:4px;">
+              {{ sortField === 'end_date' ? (sortDirection === 'asc' ? '▲' : '▼') : '▲' }}
+            </span>
+          </button>
+        </th>
+
+        <th>Τύπος</th>
+
+        <th>
+          <button (click)="sortBy('planName')" class="sort-button" aria-label="Ταξινόμηση κατά Πακέτο" style="all:unset; cursor:pointer; font-weight:600; font-size:14px; display:inline-flex; align-items:center; gap:4px;">
+            Πακέτο
+            <span [style.color]="sortField === 'planName' ? 'black' : '#ccc'" style="font-weight:bold; font-size:14px; margin-left:4px;">
+              {{ sortField === 'planName' ? (sortDirection === 'asc' ? '▲' : '▼') : '▲' }}
+            </span>
+          </button>
+        </th>
+
         <th>Τελική Τιμή</th>
       </tr>
     </thead>
+
+
+
+
     <tbody>
-<tr *ngFor="let plan of plans | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+      <tr *ngFor="let plan of plans | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
         <td><strong>{{ plan.Name || '—' }}</strong></td>
         <td>{{ plan.Description || '—' }}</td>
         <td>{{ plan.company?.Name || '—' }}</td>
@@ -57,3 +94,20 @@
     </div>
   </ng-template>
 </div>
+
+<style>
+.sort-button {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+.sort-button span {
+  color: black !important;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+</style>

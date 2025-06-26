@@ -18,6 +18,8 @@ export class CompanyPlanListComponent implements OnInit {
   itemsPerPage: number = 5;
 
   companyID = 0;
+  sortField: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   constructor(
     private planService: CompanyPlanService,
@@ -26,6 +28,48 @@ export class CompanyPlanListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPlans();
+  }
+
+  sortBy(field: string) {
+    if (this.sortField === field) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortField = field;
+      this.sortDirection = 'asc';
+    }
+    this.sortPlans();
+  }
+  sortPlans() {
+    this.plans = [...this.plans].sort((a, b) => {
+      let valA: any;
+      let valB: any;
+
+      switch (this.sortField) {
+        case 'company':
+          valA = a.company?.Name || '';
+          valB = b.company?.Name || '';
+          break;
+        case 'planName':
+          valA = a.plan?.Name || '';
+          valB = b.plan?.Name || '';
+          break;
+        case 'start_date':
+          valA = new Date(a.start_date || '');
+          valB = new Date(b.start_date || '');
+
+          break;
+        case 'end_date':
+          valA = new Date(a.end_date || '');
+          valB = new Date(b.end_date || '');
+          break;
+        default:
+          return 0;
+      }
+
+      if (valA < valB) return this.sortDirection === 'asc' ? -1 : 1;
+      if (valA > valB) return this.sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
   }
 
   loadPlans() {
