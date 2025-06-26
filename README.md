@@ -70,6 +70,11 @@
 
 ## Οδηγίες Εκκίνησης (Τοπικά)
 
+### Backend (Angular)
+```bash
+cd frontend
+npm install
+ng serve
 ### Backend (Laravel)
 
 ```bash
@@ -81,11 +86,7 @@ php artisan key:generate
 php artisan migrate --seed
 php artisan serve
 
-### Frontend (angular)
 
-```cd frontend
-    npm install
-    ng serve
 
 
 
