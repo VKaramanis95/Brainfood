@@ -53,11 +53,6 @@
 
 ## Λειτουργικότητα Frontend (Angular 19)
 
-cd frontend
-npm install
-ng serve
-
-
 - Πίνακας εταιρειών με:
   - Filters, Sorting, Pagination
   - Προσθήκη νέας εταιρείας με έλεγχο ΑΦΜ
@@ -85,6 +80,13 @@ cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
 php artisan serve
+
+### Frontend (angular)
+
+```cd frontend
+    npm install
+    ng serve
+
 
 
 
